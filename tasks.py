@@ -317,7 +317,7 @@ np.all(sigmoid(np.log([1, 1/3, 1/7])) == np.array([1/2, 1/4, 1/8]))
 # Your code here:
 # -----------------------------------------------
 #def rnn_layer(w: np.array, list_of_sequences: list[np.array], sigma=sigmoid ) -> np.array:
-    pass # Your code
+#    pass # Your code
 
 # Test
 #np.random.seed(10)
