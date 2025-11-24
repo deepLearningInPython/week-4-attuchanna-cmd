@@ -103,13 +103,9 @@ print(word_frequencies)
 # -----------------------------------------------
 def token_counts(string: str, k: int = 1) -> dict:
     tokens = [word.strip(".,!?;:").lower() for word in string.split()]
-    freq = {word: tokens.count(word) for word in tokens}
-    filtered_freq = {word: count for word, count in freq.items() if count > k}
+    freq = {token: tokens.count(token) for token in set(tokens)}
+    return {token: count for token, count in freq.items() if count >= k}
 
-    return filtered_freq
-
-#test
-print(token_counts("The fox jumped over the fox and the dog", k=1))
 
 # test:
 text_hist = {'the': 2, 'quick': 1, 'brown': 1, 'fox': 1, 'jumps': 1, 'over': 1, 'lazy': 1, 'dog': 1}
@@ -208,13 +204,14 @@ all(i2t[t2i[tok]] == tok for tok in t2i) # should be True
 # -----------------------------------------------
 def tokenize_and_encode(documents: list):
     token_to_id, id_to_token = make_vocabulary_map(documents)
-    encoded_documents = []
+    encoded_docs = []
     for doc in documents:
-        tokens = [word.strip(".,!?;:").lower() for word in doc.split()]
+        tokens = tokenize(doc)
         encoded = [token_to_id[token] for token in tokens]
-        encoded_documents.append(encoded)
+        encoded_docs.append(encoded)
     
-    return encoded_documents, token_to_id, id_to_token
+    return encoded_docs, token_to_id, id_to_token
+
 
 # Test:
 enc, t2i, i2t = tokenize_and_encode([text, 'What a luck we had today!'])
